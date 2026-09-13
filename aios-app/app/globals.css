@@ -1,0 +1,484 @@
+@import "tailwindcss";
+
+/* Variante hover réservée aux pointeurs : ne s'applique jamais au touch.
+   Portée telle quelle du design system DS-source (voir DESIGN.md). */
+@custom-variant hover-supported {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   AIOS APP — Design System
+   Source de vérité pour les tokens CSS.
+   Forké d'un design system antérieur (DS-source v1.4.0). Voir DESIGN.md à la
+   racine du projet pour la filiation complète, les composants forkés et ceux
+   écartés. Le fork est historique : ce fichier a divergé depuis.
+   Ne jamais inliner de hex/px hors ce fichier.
+   ───────────────────────────────────────────────────────── */
+
+/* ── 1. Variables CSS (light — valeur de référence documentée) ──
+   PALETTE CLAUDE, VALEURS OFFICIELLES.
+   Extraites du bundle de l'application Claude de bureau
+   (`/Applications/Claude.app/Contents/Resources/app.asar`), blocs `:root` et
+   `.darkTheme` — pas d'échantillonnage de captures d'écran, pas de
+   reconstitution à l'œil. Le commentaire en fin de ligne donne le nom du token
+   d'origine, pour pouvoir re-vérifier n'importe quelle valeur à la source.
+
+   Correspondance des trois niveaux de surface :
+     page  = bg-100 (clair) / bg-200 (sombre)
+     carte = bg-000 (clair) / bg-100 (sombre)
+     rail  = bg-300 (clair) / bg-000 (sombre)
+   Dans les deux thèmes, `surface-2` s'éloigne de la page d'un cran DANS LE
+   SENS DU CONTRASTE : plus foncé en clair, plus clair en sombre. */
+:root, .light {
+  /* Encre des bordures. Claude ne fige pas une teinte de bordure : il pose une
+     encre à 15 % d'opacité, ce qui la fait fonctionner sur n'importe quelle
+     surface. On reprend la méthode ET la valeur (`--border-300`). */
+  --border-ink: 30 3.3% 11.8%;
+
+  /* Surfaces & bordures */
+  --bg:             #faf9f5;                        /* bg-100 */
+  --surface:        #ffffff;                        /* bg-000 */
+  --surface-2:      #f0eee6;                        /* bg-300 */
+  --border:         hsl(var(--border-ink) / 0.15);  /* border-300 / .15 */
+  --border-strong:  hsl(var(--border-ink) / 0.30);  /* dérivé : même encre, opacité doublée */
+  --invert-bg:      #141413;                        /* text-100 */
+  --invert-fg:      #faf9f5;                        /* bg-100 */
+
+  /* Texte. L'échelle officielle ne compte que trois paliers réels :
+     text-000/100, text-200/300 et text-400/500 sont égaux deux à deux. */
+  --text-primary:   #141413;   /* text-100 */
+  --text-secondary: #3d3d3a;   /* text-300 */
+  --text-tertiary:  #73726c;   /* text-500 */
+
+  /* Sémantiques. `warning` n'existe pas dans la palette Claude : c'est la
+     seule couleur inventée ici, calée sur la famille chaude. */
+  --danger:   #b53333;   /* danger-100 */
+  --positive: #2f7613;   /* success-100 */
+  --warning:  #b45309;   /* hors palette Claude */
+
+  /* Bouton primary (encre) */
+  --btn-primary:       #141413;   /* text-100 */
+  --btn-primary-hover: #000000;
+  --btn-primary-fg:    #faf9f5;
+
+  /* Disabled */
+  --disabled-bg: #f0eee6;
+  --disabled-fg: #73726c;
+
+  /* Brand (terracotta Claude, couleur d'action unique) */
+  --brand:       #c6613f;   /* brand-100 (clair) */
+  --brand-hover: #a8512f;   /* dérivé : brand-100 assombri */
+  --brand-text:  #c6613f;   /* brand-100 (clair) */
+  --fg-on-fill:  #ffffff;   /* oncolor-100 */
+
+  /* Statuts de contenu (MiniStatus, ListRow). Le rond de statut code le
+     statut d'un projet, ce n'est PAS une action : il reste neutre, l'accent
+     est réservé à l'interaction. */
+  --status-neutral:  #73726c;
+  --status-done:     #73726c;
+  --status-progress: #3d3d3a;
+  --status-blocked:  var(--danger);
+  --avatar:          #f0eee6;
+  --avatar-fg:       #141413;
+
+  /* Contrôle segmenté. Deux tokens dédiés parce que la règle « le segment
+     actif est PLUS CLAIR que son rail » ne se dérive pas des surfaces
+     génériques : `surface-2` est un creux, donc plus sombre que la page en
+     clair et plus clair qu'elle en sombre. Utiliser `surface-2` comme rail et
+     `surface` comme curseur donnait un curseur plus SOMBRE que le rail en
+     mode sombre, soit l'inverse de ce que fait la barre latérale de Claude
+     Code, où l'onglet actif est toujours le plus clair. */
+  --seg-rail:   #f0eee6;   /* = surface-2, creusé sous la page */
+  --seg-active: #ffffff;   /* = surface, plus clair que le rail */
+
+  /* Voile du chrome collé (TopBar, HabitsBar) : un `--bg` quasi-opaque sous un
+     flou, pour laisser deviner le contenu qui défile dessous sans distraire.
+     `color-mix` le dérive de `--bg` directement, donc pas de duplication par
+     thème comme `--glass-bg`. Recopié 3× (`bg-bg/92 backdrop-blur-md` deux
+     fois, `bg-bg/95` une fois : même intention, opacité arbitraire et
+     divergente) avant d'être ce token (voir ticket 31). */
+  --chrome-overlay-bg: color-mix(in srgb, var(--bg) 92%, transparent);
+
+  /* Liquid glass — chrome flottant (voir DetailHeader, ContextMenu, FilterButton) */
+  --glass-bg:        rgba(255, 255, 255, 0.78);
+  --glass-edge:      hsl(var(--border-ink) / 0.15);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --glass-active:    hsl(var(--border-ink) / 0.08);
+  --glass-shadow:    0 2px 8px -1px hsl(var(--border-ink) / 0.10);
+  --glass-blur:      20px;
+  --glass-saturate:  180%;
+
+  /* Feedback tactile */
+  --scale-pressed: 0.98;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --ease-default:  ease-out;
+
+  /* Safe-area (encoche / home indicator) */
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Hauteur de la barre superposée de DetailHeader : safe-top + retour 44px + pb-xs (8) + pt-sm (16). */
+  --detail-header-h: calc(var(--safe-top) + 84px);
+
+  /* Layout */
+  --container-px: 24px;
+
+  /* Hauteur de la barre supérieure collante. Elle sert AUSSI d'offset au
+     `top` de la barre de filtres, qui se colle juste dessous : une seule
+     valeur pour les deux, sinon la seconde barre chevauche la première dès
+     que la hauteur de l'en-tête change (elle était figée à 57px en dur). */
+  --topbar-h: 60px;
+}
+@media (min-width: 768px)  { :root { --container-px: 32px; } }
+@media (min-width: 1025px) { :root { --container-px: 48px; } }
+
+/* ── 2. Dark — canvas par défaut (classe posée sur <html>, voir app/layout.tsx) ── */
+.dark {
+  /* ── SOMBRE : échelle NEUTRE, pas la warm de Claude desktop ──
+     Les quatre valeurs de fond sont choisies à la main (#111111, #1F1F1F,
+     #292929, #363636) : une échelle de gris purs, qui monte régulièrement
+     (17 → 31 → 41 → 54). C'est un écart DÉLIBÉRÉ avec le thème clair, qui
+     reste sur la palette chaude officielle de Claude : le terracotta et les
+     neutres crème fonctionnent en clair et saturent en sombre. Donc
+     clair = chaud + terracotta, sombre = neutre + bleu.
+     Tout ce qui n'est pas un fond est DÉRIVÉ ici pour rester dans le même
+     registre : du texte crème sur du gris pur tire vers le jaune. */
+
+  /* Encre neutre, uniquement pour le matériau glass (les bordures sont
+     désormais des valeurs pleines, voir plus bas). */
+  --border-ink: 0 0% 85%;
+
+  --bg:            #111111;   /* fourni */
+  --surface:       #1f1f1f;   /* fourni — carte */
+  --surface-2:     #292929;   /* fourni — rail, survol, creux */
+  --border:        #363636;   /* fourni. Valeur pleine et non encre+alpha :
+                                 elle éclaircit les trois fonds ci-dessus, donc
+                                 elle lit partout sans avoir à se composer. */
+  --border-strong: #474747;   /* dérivé : un cran au-dessus de border */
+  --invert-bg:     #f5f5f5;
+  --invert-fg:     #111111;
+
+  /* Texte neutralisé (l'échelle chaude #faf9f5/#c2c0b6/#9c9a92 virait au
+     jaune sur ces gris). Contrastes sur #111111 : 18:1, 8,6:1, 4,8:1. */
+  --text-primary:   #f5f5f5;
+  --text-secondary: #b4b4b4;
+  --text-tertiary:  #8a8a8a;
+
+  /* Sémantiques : vert / orange / rouge classiques, réservées aux ALERTES
+     (priorité, retard, blocage). Jamais une couleur d'interaction. */
+  --danger:   #f0666b;
+  --positive: #5fc271;
+  --warning:  #e8a33d;
+
+  --btn-primary:       #f5f5f5;
+  --btn-primary-hover: #ffffff;
+  --btn-primary-fg:    #111111;
+
+  --disabled-bg: #292929;
+  --disabled-fg: #6b6b6b;
+
+  /* Couleur d'INTERACTION : bleue en sombre, terracotta en clair (décision
+     produit assumée). Prise dans la famille `accent` de la palette Claude, donc pas
+     une teinte inventée. Une seule ligne à changer si la teinte doit bouger. */
+  --brand:       #2c84db;   /* accent-100 */
+  --brand-hover: #4a97e3;   /* dérivé */
+  --brand-text:  #74abe2;   /* accent-000 (sombre) — 7,3:1 sur #111111 */
+  --fg-on-fill:  #ffffff;
+
+  /* Le rond de statut n'est PAS une couleur d'interaction : il code le statut
+     d'un projet. Il repasse donc en neutre, l'accent est réservé aux actions. */
+  --status-neutral:  #8a8a8a;
+  --status-done:     #8a8a8a;
+  --status-progress: #b4b4b4;
+  --status-blocked:  var(--danger);
+  --avatar:          #363636;
+  --avatar-fg:       #f5f5f5;
+
+  --seg-rail:   #1f1f1f;   /* = surface, visible au-dessus de la page #111 */
+  --seg-active: #363636;   /* plus clair que le rail, comme en mode clair */
+
+  --glass-bg:        rgba(41, 41, 41, 0.78);
+  --glass-edge:      hsl(var(--border-ink) / 0.14);
+  --glass-highlight: hsl(var(--border-ink) / 0.10);
+  --glass-active:    hsl(var(--border-ink) / 0.10);
+  --glass-shadow:    0 2px 8px -1px rgba(0, 0, 0, 0.55);
+}
+
+
+/* ── 2bis. `.light` — force l'overlay clair sur un sous-arbre, même sous
+   `html.dark` (utilisé par la page de démonstration pour comparer les deux
+   modes côte à côte). Les valeurs elles-mêmes sont déclarées une seule fois,
+   au bloc `:root, .light` ci-dessus ; il ne reste ici que ce qui lui est
+   propre. ── */
+.light { color-scheme: light; }
+.dark { color-scheme: dark; }
+
+/* ── 3. @theme inline — bridge vers Tailwind ── */
+@theme inline {
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-2:      var(--surface-2);
+  --color-seg-rail:       var(--seg-rail);
+  --color-seg-active:     var(--seg-active);
+  --color-border:         var(--border);
+  --color-border-strong:  var(--border-strong);
+  --color-invert-bg:      var(--invert-bg);
+  --color-invert-fg:      var(--invert-fg);
+
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary:  var(--text-tertiary);
+
+  --color-danger:   var(--danger);
+  --color-positive: var(--positive);
+  --color-warning:  var(--warning);
+
+  --color-btn-primary:       var(--btn-primary);
+  --color-btn-primary-hover: var(--btn-primary-hover);
+  --color-btn-primary-fg:    var(--btn-primary-fg);
+
+  --color-disabled-bg: var(--disabled-bg);
+  --color-disabled-fg: var(--disabled-fg);
+
+  --color-brand:       var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-text:  var(--brand-text);
+  --color-fg-on-fill:  var(--fg-on-fill);
+
+  --color-glass:        var(--glass-bg);
+  --color-glass-edge:   var(--glass-edge);
+  --color-glass-active: var(--glass-active);
+
+  /* Polices */
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body:    var(--font-manrope), system-ui, sans-serif;
+
+  /* Espacement (grille 4px) */
+  --spacing-none:    0px;
+  --spacing-hair:    2px;
+  --spacing-2xs:     4px;
+  --spacing-2xs2:    6px;
+  --spacing-xs:      8px;
+  --spacing-xs2:     12px;
+  --spacing-sm:      16px;
+  --spacing-md:      24px;
+  --spacing-lg:      32px;
+  --spacing-lg-plus: 40px;
+  --spacing-xl:      48px;
+  --spacing-2xl:     64px;
+  --spacing-xl2:     72px;
+  --spacing-3xl:     96px;
+  --spacing-4xl:     128px;
+
+  /* Taille des contrôles compacts (case à cocher de tâche, pastille de
+     compteur) : sous 20px l'échelle d'espacement 4px ne tombe pas juste, ces
+     deux-là ont donc leur propre token plutôt qu'une valeur arbitraire. */
+  --spacing-control-sm: 18px;
+
+  /* Largeur MINIMALE de la pastille de compteur superposée à un bouton icône.
+     Sa hauteur et sa largeur réelles viennent du padding : à un seul chiffre
+     elle doit rester ronde, d'où ce plancher. Plus petite que `control-sm`,
+     elle n'est pas une cible de clic mais un signal. */
+  --spacing-badge: 16px;
+
+  /* Largeur d'une carte de rail horizontal (projets actifs, goals). Les deux
+     rails posaient chacun la leur (170px et 160px) : même objet, même
+     largeur. */
+  --spacing-rail-card: 168px;
+
+  /* Rayons */
+  --radius-none: 0px;
+  --radius-sm:   1px;
+  --radius-xs:   5px;   /* case à cocher 18px : `md` (8px) y ferait un cercle */
+  --radius-pill: 3px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  --shadow-glass: var(--glass-shadow);
+}
+
+/* ── 4. Utilitaires composites ── */
+
+/* Collision entre les clés xs/sm/md/lg/xl/2xl/3xl/4xl de --spacing et celles
+   de l'échelle max-w-* : sans override, max-w-2xl vaudrait --spacing-2xl
+   (64px) au lieu de la largeur de conteneur standard. Repris de DS-source, avec
+   xs/3xl/4xl ajoutés : absents chez DS-source (jamais utilisés là-bas), mais
+   AIOS App s'en sert (vues Daily/Global, en-têtes de détail, inbox,
+   recherche) et héritait donc du bug sans le correctif. */
+.max-w-xs  { max-width: 320px !important; }
+.max-w-sm  { max-width: 384px !important; }
+.max-w-md  { max-width: 448px !important; }
+.max-w-lg  { max-width: 512px !important; }
+.max-w-xl  { max-width: 576px !important; }
+.max-w-2xl { max-width: 672px !important; }
+.max-w-3xl { max-width: 768px !important; }
+.max-w-4xl { max-width: 896px !important; }
+
+.px-container   { padding-inline: var(--container-px); }
+.right-container { right: var(--container-px); }
+
+/* Bleed horizontal d'un rail défilant : il sort de la gouttière du conteneur
+   (`-mx-container`) puis se repadde (`px-container`), de sorte que le premier
+   élément s'aligne EXACTEMENT sur le titre de section tout en laissant les
+   cartes défiler jusqu'au bord de l'écran.
+   Sans cette règle, `-mx-container` n'existait pas (seul `.px-container`
+   était défini) : le padding s'ajoutait à celui de la section et décalait les
+   rails de 24px vers la droite — c'est le désalignement observé sur les
+   cartes projets et sur le rail des goals. */
+.-mx-container { margin-inline: calc(var(--container-px) * -1); }
+
+.h-topbar   { height: var(--topbar-h); }
+.top-topbar { top: var(--topbar-h); }
+
+/* Rail défilant sans barre de défilement visible (utilisé par les rails
+   horizontaux, qui se parcourent au trackpad ou au doigt).
+   Comme `-mx-container`, cette classe était utilisée sans jamais avoir été
+   définie. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Voile du chrome collé (TopBar, HabitsBar) : voir `--chrome-overlay-bg`. */
+.chrome-overlay {
+  background-color: var(--chrome-overlay-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Matériau du chrome flottant (tab bar, sheets, popovers, boutons icône). */
+.glass {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass {
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  }
+}
+
+/* Feedback tactile : enfoncement léger au touch. */
+.press { transition: transform var(--duration-fast) var(--ease-default); }
+.press:active { transform: scale(var(--scale-pressed)); }
+
+.duration-fast { transition-duration: var(--duration-fast); }
+.duration-base { transition-duration: var(--duration-base); }
+
+.pt-safe-sm  { padding-top: calc(var(--safe-top) + 16px); }
+.top-safe-sm { top: calc(var(--safe-top) + 16px); }
+
+/* Gouttière basse du home indicator, pour le chrome collé en bas
+   (HabitsBar). Utilisée depuis le début, jamais définie jusqu'ici. */
+.pb-safe { padding-bottom: var(--safe-bottom); }
+
+/* Padding-top du conteneur défilant sous un DetailHeader en overlay. */
+.pt-detail-header { padding-top: var(--detail-header-h); }
+
+/* Voile haut de DetailHeader : estompe le contenu qui défile sous la barre
+   superposée sans jamais changer sa couleur de fond. */
+.top-veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 10;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--bg) 72%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 72%, transparent) 62%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 68%, transparent 100%);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .top-veil {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}
+
+/* Fondu de défilement sous le chrome flottant : ne descend jamais à zéro. */
+.scroll-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.4) 8px, #000 14px, #000 calc(100% - 104px), rgba(0, 0, 0, 0.3) 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.4) 8px, #000 14px, #000 calc(100% - 104px), rgba(0, 0, 0, 0.3) 100%);
+}
+
+/* ── 5. Classes de typographie ── */
+.text-hero { font-family: var(--font-display); font-size: 56px; font-weight: 700; line-height: 60px; letter-spacing: -0.03em; }
+.text-h1   { font-family: var(--font-display); font-size: 48px; font-weight: 700; line-height: 52px; letter-spacing: -0.02em; }
+.text-h2   { font-family: var(--font-display); font-size: 32px; font-weight: 500; line-height: 40px; letter-spacing: -0.02em; }
+.text-h3   { font-family: var(--font-display); font-size: 24px; font-weight: 500; line-height: 32px; letter-spacing: -0.01em; }
+.text-h4   { font-family: var(--font-display); font-size: 18px; font-weight: 500; line-height: 24px; letter-spacing: -0.02em; }
+
+.text-body-lg { font-family: var(--font-body); font-size: 18px; line-height: 28px; }
+.text-body    { font-family: var(--font-body); font-size: 16px; line-height: 24px; }
+.text-body-sm { font-family: var(--font-body); font-size: 14px; line-height: 20px; }
+.text-label   { font-family: var(--font-body); font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: 0.08em; }
+.text-caption { font-family: var(--font-body); font-size: 12px; line-height: 16px; }
+/* Palier sous `caption`, pour les pastilles de compteur et les métadonnées de
+   la barre d'habitudes. Il comble un vrai trou de l'échelle : plusieurs vues
+   posaient déjà des `text-[9px]`/`text-[10px]` arbitraires faute de classe. */
+.text-micro   { font-family: var(--font-body); font-size: 10px; font-weight: 500; line-height: 14px; }
+/* Pastilles de compteur. Même corps que `micro` mais nettement plus gras :
+   sur une pastille pleine de 10px de haut de texte, le poids fait le travail
+   que la taille ne peut pas faire. Interligne collé au corps, la hauteur de la
+   pastille vient de son padding et non de l'interligne. */
+.text-nano    { font-family: var(--font-body); font-size: 10px; font-weight: 800; line-height: 12px; letter-spacing: 0.01em; }
+.text-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 767px) {
+  .text-hero    { font-size: 32px; line-height: 36px; }
+  .text-h1      { font-size: 28px; line-height: 32px; }
+  .text-h2      { font-size: 24px; line-height: 32px; }
+  .text-body-lg { font-size: 16px; line-height: 24px; }
+}
+
+/* ── 6. Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { height: 100%; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── 7. Prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

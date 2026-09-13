@@ -1,0 +1,16 @@
+{
+  "name": "deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export:pdf": "slidev export --format pdf --output deck",
+    "export:pptx": "slidev export --format pptx --output deck"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "*",
+    "playwright-chromium": "^1.50.0"
+  }
+}

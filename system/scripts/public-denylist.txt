@@ -1,0 +1,6 @@
+# La liste reelle n'est pas publiee : elle nommerait un par un les prenoms et
+# les projets qu'elle sert a tenir hors de ce depot. Elle vit dans le depot
+# prive, a ce meme chemin, et c'est elle que check-public-names.py lit.
+#
+# Pour reutiliser ce mecanisme : ecrire ici un nom par ligne, insensible a la
+# casse et aux accents, compare sur des mots entiers.

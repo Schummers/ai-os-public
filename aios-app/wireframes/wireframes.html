@@ -1,0 +1,1631 @@
+<!doctype html>
+<html lang="fr" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIOS App — Wireframes v2 (Design System DS-source v1.0.0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   TOKENS ISSUS DE DESIGN.md & app/globals.css (Dark Canvas)
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg:             #09090b;
+  --surface:        #18181b;
+  --surface-2:      #1f1f23;
+  --border:         #27272a;
+  --border-strong:  #3f3f46;
+  --invert-bg:      #fafafa;
+  --invert-fg:      #18181b;
+
+  --text-primary:   #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-tertiary:  #71717a;
+
+  --brand:          #6366f1;
+  --brand-hover:    #4f46e5;
+  --brand-text:     #818cf8;
+  --fg-on-fill:     #ffffff;
+
+  --danger:         #ef4444;
+  --positive:       #22c55e;
+  --warning:        #f59e0b;
+
+  --status-neutral:  #71717a;
+  --status-progress: #6366f1;
+  --status-done:     #71717a;
+  --status-blocked:  #ef4444;
+
+  --glass-bg:        rgba(24, 24, 27, 0.78);
+  --glass-edge:      rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-shadow:    0 4px 16px -2px rgba(0, 0, 0, 0.5);
+  --glass-blur:      20px;
+
+  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body:    'Manrope', system-ui, -apple-system, sans-serif;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-full: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: #030304;
+  color: var(--text-primary);
+  padding: 32px 24px 60px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ──────────────── Top Header & Controls ──────────────── */
+header.wf-header {
+  max-width: 1400px;
+  margin: 0 auto 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.wf-title h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.wf-title p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  max-width: 780px;
+  line-height: 1.5;
+}
+.wf-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 4px 8px;
+}
+.wf-controls span {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  padding-left: 6px;
+}
+.wf-btn-group {
+  display: flex;
+  gap: 2px;
+  background: var(--surface-2);
+  border-radius: var(--r-full);
+  padding: 2px;
+}
+.wf-btn {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+.wf-btn.active {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ──────────────── Gallery Grid ──────────────── */
+.gallery {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding-bottom: 32px;
+  align-items: flex-start;
+}
+.screen-wrapper {
+  flex: 0 0 390px;
+  width: 390px;
+  transition: width 200ms ease, flex-basis 200ms ease;
+}
+body.w-360 .screen-wrapper {
+  flex: 0 0 360px;
+  width: 360px;
+}
+.screen-meta {
+  margin-bottom: 10px;
+}
+.screen-meta .badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-text);
+  margin-bottom: 4px;
+}
+.screen-meta h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.screen-meta p {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ──────────────── Phone Device Mockup ──────────────── */
+.device {
+  height: 820px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.7);
+}
+.device-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 52px; /* espace pour la barre d'habitudes */
+}
+.device-scroll::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ──────────────── Component Annotation Pill ──────────────── */
+.cmp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--r-sm);
+  padding: 1px 4px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ──────────────── Design System Components ──────────────── */
+
+/* [TopBar / Glass Chrome] */
+.topbar {
+  padding: 12px 14px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* [SegmentedControl] */
+.segmented-control {
+  display: inline-flex;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 2px;
+}
+.segmented-item {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: var(--r-full);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-decoration: none;
+}
+.segmented-item.active {
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* [IconButton] */
+.icon-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-full);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  position: relative;
+  font-size: 13px;
+  cursor: pointer;
+}
+.icon-btn .badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: var(--r-full);
+  padding: 1px 5px;
+  line-height: 1.2;
+}
+
+/* [SectionHeader] & [SectionGroupee] */
+.section {
+  padding: 14px 14px 6px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-count {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+.section-action {
+  font-size: 11px;
+  color: var(--brand-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* [Card] */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+/* [Horizontal Rails] */
+.rail {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 14px 4px;
+  margin: 0 -14px;
+}
+.rail::-webkit-scrollbar { height: 0; }
+
+/* Dense Project Card (in Rail or List) */
+.project-card {
+  flex: 0 0 170px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.project-card.active-border {
+  border-color: var(--brand);
+}
+.project-card .p-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.project-card .p-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  flex-wrap: wrap;
+}
+.project-card .p-drift {
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.drift-warn { color: var(--warning); }
+.drift-danger { color: var(--danger); }
+.drift-ok { color: var(--text-tertiary); }
+
+/* Goal Card (Horizontal Rail) */
+.goal-card {
+  flex: 0 0 156px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 10px;
+}
+.goal-card.selected {
+  border-color: var(--brand);
+  background: var(--surface-2);
+}
+.goal-card .g-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.goal-card .g-health {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+.goal-card .g-volume {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+/* [StatusCircle] & [MiniStatus] */
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-full);
+  display: inline-block;
+  flex: 0 0 7px;
+}
+.dot.on { background: var(--status-progress); }
+.dot.ongoing { background: var(--text-tertiary); }
+.dot.simmering { background: var(--warning); }
+.dot.sleeping { background: #52525b; }
+.dot.danger { background: var(--danger); }
+.dot.positive { background: var(--positive); }
+
+/* [Pills & Tags] */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.pill.pri-high { border-color: rgba(239, 68, 68, 0.3); color: #fca5a5; background: rgba(239, 68, 68, 0.1); }
+.pill.pri-med { border-color: rgba(245, 158, 11, 0.3); color: #fcd34d; background: rgba(245, 158, 11, 0.1); }
+.pill.assist { border-color: rgba(34, 197, 94, 0.3); color: #86efac; background: rgba(34, 197, 94, 0.1); }
+.pill.blocked { border-color: rgba(239, 68, 68, 0.4); color: var(--danger); background: rgba(239, 68, 68, 0.08); }
+.pill.goal-tag { border-color: rgba(99, 102, 241, 0.3); color: #a5b4fc; background: rgba(99, 102, 241, 0.1); }
+
+/* [Focus Card] */
+.focus-card {
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.focus-eyebrow {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.focus-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.focus-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.focus-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn-action {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  text-align: center;
+  cursor: pointer;
+}
+.btn-action.brand {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+/* [ListRow] (Task) */
+.list-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 11px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: 6px;
+}
+.list-row.blocked-row {
+  opacity: 0.65;
+  border-style: dashed;
+}
+.chkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  flex: 0 0 16px;
+  margin-top: 2px;
+  background: transparent;
+}
+.chkbox.doing {
+  border-color: var(--brand);
+  background: linear-gradient(90deg, var(--brand) 50%, transparent 50%);
+}
+.chkbox.done {
+  border-color: var(--text-tertiary);
+  background: var(--text-tertiary);
+}
+.row-content {
+  flex: 1;
+  min-width: 0;
+}
+.row-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+}
+
+/* [DayView (Extension)] - Proportional Blocks */
+.day-track {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+.day-block {
+  border-radius: var(--r-md);
+  padding: 8px 10px;
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+.day-block.focus-blk {
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #c7d2fe;
+}
+.day-block.meeting-blk {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+.day-block.perso-blk {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
+.day-gap {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-md);
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+.day-gap .gap-info {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+.day-gap .gap-sugg {
+  color: var(--brand-text);
+  font-weight: 600;
+}
+.now-marker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0;
+}
+.now-marker .line {
+  flex: 1;
+  height: 1.5px;
+  background: var(--danger);
+}
+.now-marker .time {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* [HabitsBar (Extension)] - Sticky ≤ 40px */
+.habits-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  max-height: 40px;
+  background: linear-gradient(180deg, rgba(9, 9, 11, 0.88) 0%, rgba(9, 9, 11, 0.98) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 10px;
+  z-index: 30;
+  border-top: 0; /* Pas de trait de séparation selon spec */
+}
+.habit-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.habit-chk {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 3px;
+}
+.habit-chk.checked {
+  background: var(--positive);
+  border-color: var(--positive);
+}
+.habit-meta {
+  font-size: 9px;
+  color: var(--text-tertiary);
+}
+
+/* [FilterBar] */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  overflow-x: auto;
+  position: sticky;
+  top: 57px;
+  z-index: 10;
+}
+.filter-bar::-webkit-scrollbar { height: 0; }
+.filter-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.filter-pill.active {
+  border-color: var(--brand);
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--text-primary);
+}
+
+/* [ProjectAccordion (Extension)] */
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.accordion-tasks {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.collapsed-closed-tasks {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  padding: 6px 0 2px 26px;
+  cursor: pointer;
+}
+
+/* [DetailHeader] */
+.detail-header {
+  padding: 12px 14px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.detail-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Field row (readonly vs editable) */
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.field-label {
+  color: var(--text-tertiary);
+}
+.field-val {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.field-readonly-badge {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 1px 4px;
+  margin-left: 4px;
+}
+
+/* Search input / pill */
+.search-box {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-full);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 14px 6px;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<header class="wf-header">
+  <div class="wf-title">
+    <h1>AIOS App — Wireframes v2 (Langage DS-source v1.0.0)</h1>
+    <p>Document de référence visuel pour le MVP. Tous les composants sont nommés d'après le Design System forké en Dark. Les 5 décisions de session sont intégrées.</p>
+  </div>
+  <div class="wf-controls">
+    <span>Largeur de test :</span>
+    <div class="wf-btn-group">
+      <button class="wf-btn active" onclick="setWidth('390')">390px (Défaut)</button>
+      <button class="wf-btn" onclick="setWidth('360')">360px (Étroit)</button>
+    </div>
+  </div>
+</header>
+
+<div class="gallery">
+
+  <!-- ═════════════════════════════════════════════════════════════
+       1. ÉCRAN DAILY
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 1 / 7</span>
+      <h2>Vue Daily</h2>
+      <p>Projets actifs en rail horizontal → Focus du jour → Tâches du jour → Journée en blocs proportionnels → Barre d'habitudes.</p>
+    </div>
+    <div class="device">
+      <!-- TopBar -->
+      <div class="topbar">
+        <div class="segmented-control">
+          <span class="cmp-tag">SegmentedControl</span>
+          <span class="segmented-item active">Daily</span>
+          <span class="segmented-item">Global</span>
+        </div>
+        <div class="icon-btn-group">
+          <div class="icon-btn" title="Inbox">
+            <span class="cmp-tag">IconButton</span>
+            📥<span class="badge">3</span>
+          </div>
+          <div class="icon-btn" title="Recherche">
+            🔍
+          </div>
+        </div>
+      </div>
+
+      <div class="device-scroll">
+        <!-- Section 1 : Projets en cours (Rail horizontal) -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">
+              Projets en cours <span class="cmp-tag">SectionHeader</span>
+            </div>
+            <span class="section-count">4 actifs</span>
+          </div>
+          <div class="rail">
+            <span class="cmp-tag" style="align-self:center">Rail horizontal</span>
+            <!-- Carte 1 -->
+            <div class="project-card active-border">
+              <div>
+                <span class="pill goal-tag" style="margin-bottom:4px">agency</span>
+                <div class="p-title">Pipeline job</div>
+              </div>
+              <div>
+                <div class="p-meta"><span class="dot on"></span> 3 doing · 9 todo</div>
+                <div class="p-drift drift-warn">⚠️ J-3</div>
+              </div>
+            </div>
+            <!-- Carte 2 -->
+            <div class="project-card">
+              <div>
+                <span class="pill goal-tag" style="margin-bottom:4px">ai-os</span>
+                <div class="p-title">AIOS App MVP</div>
+              </div>
+              <div>
+                <div class="p-meta"><span class="dot on"></span> 2 doing · 5 todo</div>
+                <div class="p-drift drift-ok">actif hier</div>
+              </div>
+            </div>
+            <!-- Carte 3 -->
+            <div class="project-card">
+              <div>
+                <span class="pill goal-tag" style="margin-bottom:4px">patrimoine</span>
+                <div class="p-title">Refonte Atlas</div>
+              </div>
+              <div>
+                <div class="p-meta"><span class="dot on"></span> 0 doing · 4 todo</div>
+                <div class="p-drift drift-danger">⚠️ inactif 21 j</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2 : Focus du jour -->
+        <div class="section" style="padding-top:4px">
+          <div class="focus-card">
+            <div class="focus-eyebrow">
+              <span>Focus du jour</span>
+              <span class="cmp-tag">Card (Focus)</span>
+            </div>
+            <div class="focus-title">Retravailler le positionnement freelance & candidatures directes</div>
+            <div class="focus-tags">
+              <span class="pill goal-tag">Goal: agency</span>
+              <span class="pill">Projet: Pipeline</span>
+              <span class="pill pri-high">high</span>
+              <span class="pill assist">⚡ assist</span>
+            </div>
+            <div class="focus-actions">
+              <button class="btn-action brand">Marquer terminée</button>
+              <button class="btn-action">Ouvrir Obsidian ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3 : Tâches du jour -->
+        <div class="section" style="padding-top:0">
+          <div class="section-header">
+            <div class="section-title">
+              Tâches du jour <span class="cmp-tag">SectionHeader</span>
+            </div>
+            <span class="section-count">4 disponibles</span>
+          </div>
+
+          <div class="list-row">
+            <span class="cmp-tag">ListRow</span>
+            <div class="chkbox doing"></div>
+            <div class="row-content">
+              <div class="row-title">Appliquer aux 3 postes cibles sur LinkedIn</div>
+              <div class="row-meta">
+                <span class="pill pri-high">high</span>
+                <span>Aujourd'hui</span>
+                <span class="pill assist">⚡ assist</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Relancer Léa pour le call d'introduction</div>
+              <div class="row-meta">
+                <span class="pill pri-med">med</span>
+                <span>11:00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Rédiger le brief technique de la passerelle</div>
+              <div class="row-meta">
+                <span>AIOS App</span>
+                <span>16:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tâche bloquée -->
+          <div class="list-row blocked-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Créer la page entreprise Google Cloud</div>
+              <div class="row-meta">
+                <span class="pill blocked">⛔ bloquée : attente validation SIREN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4 : Journée (Blocs proportionnels) -->
+        <div class="section" style="padding-top:0">
+          <div class="section-header">
+            <div class="section-title">
+              Journée <span class="cmp-tag">DayView (Extension)</span>
+            </div>
+            <span class="section-count">3 créneaux · 3h15 libres</span>
+          </div>
+
+          <div class="day-track">
+            <!-- Bloc 1 -->
+            <div class="day-block focus-blk" style="height:60px">
+              <strong>09:00 - 10:30 · Focus</strong>
+              <div>Positionnement & LinkedIn (Pipeline)</div>
+            </div>
+
+            <!-- Trou nommé & chiffré -->
+            <div class="day-gap">
+              <span class="gap-info">☕ 30 min libres</span>
+              <span class="gap-sugg">Suggestion : Tri inbox (10 min)</span>
+            </div>
+
+            <!-- Bloc 2 -->
+            <div class="day-block meeting-blk" style="height:40px">
+              <strong>11:00 - 11:30 · Réunion</strong>
+              <div>Call Léa — Intro agence</div>
+            </div>
+
+            <!-- Ligne heure courante -->
+            <div class="now-marker">
+              <div class="line"></div>
+              <span class="time">14:32</span>
+            </div>
+
+            <!-- Trou nommé & chiffré -->
+            <div class="day-gap">
+              <span class="gap-info">⏳ 1h45 libres</span>
+              <span class="gap-sugg">Suggestion : Rédiger brief technique</span>
+            </div>
+
+            <!-- Bloc 3 -->
+            <div class="day-block focus-blk" style="height:70px">
+              <strong>16:00 - 17:30 · Proposition Focus</strong>
+              <div>Session Dev AIOS App — Passerelle</div>
+            </div>
+
+            <!-- Bloc 4 -->
+            <div class="day-block perso-blk" style="height:40px">
+              <strong>18:30 - 19:30 · Perso</strong>
+              <div>Sport / Course à pied</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barre d'habitudes (collée en bas, ≤ 40px, sans bordure supérieure) -->
+      <div class="habits-bar">
+        <span class="cmp-tag" style="position:absolute;top:-18px;left:10px">HabitsBar (≤40px)</span>
+        <div class="habit-item">
+          <div class="habit-chk checked"></div>
+          <span>Sport</span>
+          <span class="habit-meta">🔥 12</span>
+        </div>
+        <div class="habit-item">
+          <div class="habit-chk checked"></div>
+          <span>Deep Work</span>
+          <span class="habit-meta">🔥 8</span>
+        </div>
+        <div class="habit-item">
+          <div class="habit-chk"></div>
+          <span>Lecture</span>
+          <span class="habit-meta">85%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       2. ÉCRAN GLOBAL PROJETS
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 2 / 7</span>
+      <h2>Vue Global — Projets</h2>
+      <p>Rail des Goals → Filtres (Projets/Contenus) → Projets groupés par statut avec accordéon de tâches.</p>
+    </div>
+    <div class="device">
+      <!-- TopBar -->
+      <div class="topbar">
+        <div class="segmented-control">
+          <span class="segmented-item">Daily</span>
+          <span class="segmented-item active">Global</span>
+        </div>
+        <div class="icon-btn-group">
+          <div class="icon-btn">📥<span class="badge">3</span></div>
+          <div class="icon-btn">🔍</div>
+        </div>
+      </div>
+
+      <!-- Rail des Goals -->
+      <div style="padding: 10px 14px 4px; border-bottom: 1px solid var(--border);">
+        <div class="section-header" style="margin-bottom:6px">
+          <span class="section-title">Goals Q3 <span class="cmp-tag">GoalRail (Extension)</span></span>
+          <span class="section-count">Tap pour filtrer</span>
+        </div>
+        <div class="rail">
+          <div class="goal-card selected">
+            <div class="g-title">🎯 Agency Job</div>
+            <div class="g-health"><span class="dot on"></span> Priorité #1</div>
+            <div class="g-volume">1 projet · 12 tâches</div>
+          </div>
+          <div class="goal-card">
+            <div class="g-title">⚙️ AI OS Core</div>
+            <div class="g-health"><span class="dot positive"></span> En bonne voie</div>
+            <div class="g-volume">2 projets · 18 tâches</div>
+          </div>
+          <div class="goal-card">
+            <div class="g-title">🏡 Patrimoine Atlas</div>
+            <div class="g-health"><span class="dot simmering"></span> Attention</div>
+            <div class="g-volume">1 projet · 4 tâches</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="segmented-control" style="flex: 0 0 auto">
+          <span class="segmented-item active">Projets</span>
+          <span class="segmented-item">Contenus</span>
+        </div>
+        <span class="filter-pill active">Actifs (on)</span>
+        <span class="filter-pill">High pri</span>
+        <span class="filter-pill">⚡ Assist</span>
+        <span class="filter-pill">Filtres + (1)</span>
+      </div>
+
+      <div class="device-scroll">
+        <!-- Section Groupée : Projets ON -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="dot on"></span> Actifs (on) <span class="cmp-tag">SectionGroupee</span>
+            </div>
+            <span class="section-count">2 projets</span>
+          </div>
+
+          <!-- Projet 1 : Déplié en accordéon -->
+          <div class="card" style="border-color: var(--brand);">
+            <div class="accordion-header">
+              <div>
+                <div class="p-title">Pipeline candidatures <span class="cmp-tag">ProjectAccordion</span></div>
+                <div class="p-meta">
+                  <span class="pill goal-tag">agency</span>
+                  <span class="pill pri-high">high</span>
+                  <span>12 ouvertes</span>
+                </div>
+              </div>
+              <span style="color:var(--brand-text); font-size:12px">▲ Replier</span>
+            </div>
+
+            <!-- Tâches dépliées en accordéon (toutes les ouvertes) -->
+            <div class="accordion-tasks">
+              <div class="list-row" style="background:var(--surface-2); margin-bottom:4px">
+                <div class="chkbox doing"></div>
+                <div class="row-content">
+                  <div class="row-title">Retravailler le positionnement freelance</div>
+                  <div class="row-meta"><span class="pill pri-high">high</span><span class="pill assist">⚡ assist</span></div>
+                </div>
+              </div>
+              <div class="list-row" style="background:var(--surface-2); margin-bottom:4px">
+                <div class="chkbox"></div>
+                <div class="row-content">
+                  <div class="row-title">Appliquer sur LinkedIn aux 3 annonces</div>
+                  <div class="row-meta"><span>Aujourd'hui</span></div>
+                </div>
+              </div>
+              <div class="list-row" style="background:var(--surface-2); margin-bottom:4px">
+                <div class="chkbox"></div>
+                <div class="row-content">
+                  <div class="row-title">Relancer Léa pour le call d'intro</div>
+                  <div class="row-meta"><span class="pill pri-med">med</span></div>
+                </div>
+              </div>
+              <!-- Terminées repliées derrière compteur -->
+              <div class="collapsed-closed-tasks">
+                ▸ 5 tâches terminées repliées
+              </div>
+            </div>
+          </div>
+
+          <!-- Projet 2 : Replié -->
+          <div class="card">
+            <div class="accordion-header">
+              <div>
+                <div class="p-title">AIOS App MVP</div>
+                <div class="p-meta">
+                  <span class="pill goal-tag">ai-os</span>
+                  <span class="pill pri-high">high</span>
+                  <span>7 ouvertes</span>
+                  <span class="drift-ok">actif hier</span>
+                </div>
+              </div>
+              <span style="color:var(--text-tertiary); font-size:12px">▼ Déplier</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Groupée : Projets SIMMERING -->
+        <div class="section" style="padding-top:0">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="dot simmering"></span> En maturation (simmering)
+            </div>
+            <span class="section-count">1 projet</span>
+          </div>
+          <div class="card">
+            <div class="accordion-header">
+              <div>
+                <div class="p-title">Cadrage Race Director</div>
+                <div class="p-meta">
+                  <span>5 ouvertes</span>
+                  <span class="drift-warn">inactif 14 j</span>
+                </div>
+              </div>
+              <span style="color:var(--text-tertiary); font-size:12px">▼ Déplier</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="habits-bar">
+        <div class="habit-item"><div class="habit-chk checked"></div><span>Sport</span></div>
+        <div class="habit-item"><div class="habit-chk checked"></div><span>Deep Work</span></div>
+        <div class="habit-item"><div class="habit-chk"></div><span>Lecture</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       3. ÉCRAN GLOBAL CONTENUS
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 3 / 7</span>
+      <h2>Vue Global — Contenus</h2>
+      <p>Groupés par statut puis dans Production par stage (jalons, pas de tunnel fléché).</p>
+    </div>
+    <div class="device">
+      <div class="topbar">
+        <div class="segmented-control">
+          <span class="segmented-item">Daily</span>
+          <span class="segmented-item active">Global</span>
+        </div>
+        <div class="icon-btn-group">
+          <div class="icon-btn">📥<span class="badge">3</span></div>
+          <div class="icon-btn">🔍</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="segmented-control" style="flex: 0 0 auto">
+          <span class="segmented-item">Projets</span>
+          <span class="segmented-item active">Contenus</span>
+        </div>
+        <span class="filter-pill active">Tous les stages</span>
+        <span class="filter-pill">LinkedIn</span>
+        <span class="filter-pill">YouTube</span>
+      </div>
+
+      <div class="device-scroll">
+        <!-- Section Production avec sous-sections de stage -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="dot on"></span> En Production <span class="cmp-tag">SectionGroupee</span>
+            </div>
+            <span class="section-count">3 contenus</span>
+          </div>
+
+          <!-- Sous-section Stage 1 -->
+          <div style="margin-bottom:10px">
+            <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-bottom:4px; text-transform:uppercase">
+              Jalon · Scripting
+            </div>
+            <div class="card" style="margin-bottom:6px">
+              <div class="row-title">Pourquoi j'ai migré d'Obsidian à AIOS</div>
+              <div class="row-meta">
+                <span class="pill">Article</span>
+                <span class="pill goal-tag">growth</span>
+                <span>Échéance: 22 août</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sous-section Stage 2 -->
+          <div style="margin-bottom:10px">
+            <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-bottom:4px; text-transform:uppercase">
+              Jalon · Packaging
+            </div>
+            <div class="card" style="margin-bottom:6px">
+              <div class="row-title">3 erreurs d'architecture multi-agents</div>
+              <div class="row-meta">
+                <span class="pill">Carousel</span>
+                <span class="pill goal-tag">convert</span>
+                <span>Prêt pour publication</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Idées -->
+        <div class="section" style="padding-top:0">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="dot ongoing"></span> Idées / Backlog
+            </div>
+            <span class="section-count">5 notes</span>
+          </div>
+          <div class="card">
+            <div class="row-title">Deep dive sur le design system pour Claude Code</div>
+            <div class="row-meta"><span class="pill">Post court</span><span>Capturé il y a 3 j</span></div>
+          </div>
+        </div>
+
+        <!-- Section Publiés -->
+        <div class="section" style="padding-top:0">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="dot positive"></span> Publiés récemment
+            </div>
+            <span class="section-count">2</span>
+          </div>
+          <div class="card" style="opacity:0.8">
+            <div class="row-title">Lancement de mon second cerveau en local</div>
+            <div class="row-meta"><span>Publié le 10 août</span><span class="pill">LinkedIn</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="habits-bar">
+        <div class="habit-item"><div class="habit-chk checked"></div><span>Sport</span></div>
+        <div class="habit-item"><div class="habit-chk checked"></div><span>Deep Work</span></div>
+        <div class="habit-item"><div class="habit-chk"></div><span>Lecture</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       4. ÉCRAN PAGE PROJET
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 4 / 7</span>
+      <h2>Page Projet</h2>
+      <p>DetailHeader avec retour explicite, objectif, métadonnées, tâches ouvertes et journal.</p>
+    </div>
+    <div class="device">
+      <!-- DetailHeader -->
+      <div class="detail-header">
+        <a class="detail-back">
+          <span class="cmp-tag">DetailHeader</span>
+          ← Retour
+        </a>
+        <div class="icon-btn-group">
+          <button class="btn-action" style="padding:4px 8px; font-size:11px">Obsidian ↗</button>
+          <div class="icon-btn">⋮</div>
+        </div>
+      </div>
+
+      <div class="device-scroll">
+        <div class="section">
+          <h1 style="font-family:var(--font-display); font-size:18px; font-weight:700; margin-bottom:6px">
+            Pipeline candidatures
+          </h1>
+          <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.4; margin-bottom:12px">
+            Conduire le process de recrutement pour un poste salarié en agence au Q3 2026.
+          </p>
+
+          <!-- Métadonnées -->
+          <div class="card" style="margin-bottom:12px">
+            <div class="field-row">
+              <span class="field-label">Goal rattaché</span>
+              <span class="field-val"><span class="pill goal-tag">agency</span></span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Statut du dossier</span>
+              <span class="field-val"><span class="dot on"></span> projects/on/ <span class="field-readonly-badge">Lecture seule</span></span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Priorité</span>
+              <span class="field-val"><span class="pill pri-high">high</span></span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Échéance cible</span>
+              <span class="field-val">15 sept. 2026 (J-31)</span>
+            </div>
+          </div>
+
+          <!-- Tâches du projet -->
+          <div class="section-header">
+            <div class="section-title">Tâches du projet</div>
+            <span class="section-count">3 ouvertes · 5 terminées</span>
+          </div>
+
+          <div class="list-row">
+            <div class="chkbox doing"></div>
+            <div class="row-content">
+              <div class="row-title">Retravailler le positionnement freelance</div>
+              <div class="row-meta"><span class="pill pri-high">high</span><span class="pill assist">⚡ assist</span></div>
+            </div>
+          </div>
+
+          <div class="list-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Appliquer aux 3 offres repérées</div>
+              <div class="row-meta"><span>Aujourd'hui</span></div>
+            </div>
+          </div>
+
+          <div class="list-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Préparer grille d'évaluation technique</div>
+              <div class="row-meta"><span class="pill pri-med">med</span></div>
+            </div>
+          </div>
+
+          <!-- Journal récent -->
+          <div class="section-header" style="margin-top:14px">
+            <div class="section-title">Dernières notes du journal</div>
+          </div>
+          <div class="card" style="font-size:11.5px; color:var(--text-secondary); line-height:1.4">
+            <strong style="color:var(--text-primary)">2026-08-14</strong> : Discussion initiale avec le recruteur. Profil retenu pour la suite du screening.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       5. ÉCRAN PAGE TÂCHE
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 5 / 7</span>
+      <h2>Page Tâche</h2>
+      <p>Champs éditables en 1 tap (statut, priorité, échéance, autonomie), corps préservé, lien Obsidian.</p>
+    </div>
+    <div class="device">
+      <div class="detail-header">
+        <a class="detail-back">← Tâches</a>
+        <div class="icon-btn-group">
+          <button class="btn-action" style="padding:4px 8px; font-size:11px">Obsidian ↗</button>
+          <div class="icon-btn">⋮</div>
+        </div>
+      </div>
+
+      <div class="device-scroll">
+        <div class="section">
+          <h1 style="font-family:var(--font-display); font-size:16px; font-weight:700; margin-bottom:12px">
+            Retravailler le positionnement freelance
+          </h1>
+
+          <!-- 4 Champs éditables -->
+          <div class="card" style="margin-bottom:12px">
+            <div style="font-size:11px; font-weight:700; color:var(--brand-text); margin-bottom:8px; text-transform:uppercase">
+              Champs éditables (Écriture frontmatter)
+            </div>
+
+            <!-- Statut sélecteur -->
+            <div class="field-row">
+              <span class="field-label">Statut</span>
+              <div class="segmented-control">
+                <span class="segmented-item">todo</span>
+                <span class="segmented-item active">doing</span>
+                <span class="segmented-item">done</span>
+              </div>
+            </div>
+
+            <!-- Priorité sélecteur -->
+            <div class="field-row">
+              <span class="field-label">Priorité</span>
+              <div class="segmented-control">
+                <span class="segmented-item active">high</span>
+                <span class="segmented-item">medium</span>
+                <span class="segmented-item">low</span>
+              </div>
+            </div>
+
+            <!-- Échéance sélecteur -->
+            <div class="field-row">
+              <span class="field-label">Échéance</span>
+              <span class="field-val" style="color:var(--brand-text); cursor:pointer">2026-08-15 (Aujourd'hui) ✎</span>
+            </div>
+
+            <!-- Autonomie sélecteur -->
+            <div class="field-row">
+              <span class="field-label">Autonomie</span>
+              <div class="segmented-control">
+                <span class="segmented-item active">⚡ assist</span>
+                <span class="segmented-item">ask</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contexte & Solution (Lecture) -->
+          <div class="section-header">
+            <div class="section-title">Contexte & Objectif <span class="field-readonly-badge">Corps Markdown</span></div>
+          </div>
+          <div class="card" style="font-size:12px; line-height:1.5; color:var(--text-secondary)">
+            Clarifier la proposition de valeur sur les rôles Lead Engineer / AI Architect avant d'entamer les entretiens techniques.
+          </div>
+
+          <!-- Critères de succès -->
+          <div class="section-header" style="margin-top:10px">
+            <div class="section-title">Critères de succès</div>
+          </div>
+          <div class="card" style="font-size:12px; color:var(--text-secondary)">
+            • 1 phrase d'accroche percutante rédigée.<br>
+            • 3 réalisations clés chiffrées documentées.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       6. ÉCRAN INBOX
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 6 / 7</span>
+      <h2>Page Inbox</h2>
+      <p>Captures brutes non traitées avec action directe pour déclencher le process agent.</p>
+    </div>
+    <div class="device">
+      <div class="detail-header">
+        <a class="detail-back">← Retour</a>
+        <span style="font-family:var(--font-display); font-size:13px; font-weight:700">Inbox (3 captures)</span>
+        <div class="icon-btn">⚙️</div>
+      </div>
+
+      <div class="device-scroll">
+        <div class="section">
+          <!-- Action Rapide Agent -->
+          <div class="card" style="background: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, var(--surface) 100%); border-color: rgba(99, 102, 241, 0.35); text-align:center; padding:14px">
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:4px">
+              Traiter les captures non classées
+            </div>
+            <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:10px">
+              L'agent va classer ces notes en tâches, projets ou sources selon les règles du vault.
+            </p>
+            <button class="btn-action brand" style="width:100%">⚡ Lancer process-inbox</button>
+          </div>
+
+          <div class="section-header" style="margin-top:12px">
+            <div class="section-title">Notes à traiter <span class="cmp-tag">ListRow</span></div>
+            <span class="section-count">3 notes</span>
+          </div>
+
+          <div class="card">
+            <div class="row-title">Idée d'outil : CLI pour synchroniser les métriques de santé</div>
+            <div class="row-meta">
+              <span>Capturé aujourd'hui à 08:45</span>
+              <span class="pill">Audio transcript</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row-title">Contact Léa — Agence Nova (recommandation Alex)</div>
+            <div class="row-meta">
+              <span>Capturé hier</span>
+              <span class="pill">Note rapide</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row-title">Article sur les interfaces denses en 390px (Linear mobile)</div>
+            <div class="row-meta">
+              <span>Capturé il y a 2 j</span>
+              <span class="pill">Web clip</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       7. ÉCRAN RECHERCHE
+       ═════════════════════════════════════════════════════════════ -->
+  <div class="screen-wrapper">
+    <div class="screen-meta">
+      <span class="badge">Écran 7 / 7</span>
+      <h2>Recherche Globale</h2>
+      <p>Recherche instantanée titres/frontmatter groupée par type, option plein texte explicite.</p>
+    </div>
+    <div class="device">
+      <div class="detail-header">
+        <a class="detail-back">← Fermer</a>
+        <span style="font-family:var(--font-display); font-size:13px; font-weight:700">Recherche</span>
+        <div style="width:28px"></div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-box">
+        <span class="cmp-tag">SearchPill</span>
+        <span>🔍</span>
+        <span style="color:var(--text-primary); font-weight:600">positionnement</span>
+        <span style="margin-left:auto; color:var(--text-tertiary); font-size:11px">ESC</span>
+      </div>
+
+      <div class="device-scroll">
+        <div class="section" style="padding-top:4px">
+          <!-- Groupe Tâches -->
+          <div class="section-header">
+            <div class="section-title">Tâches (2) <span class="cmp-tag">SectionGroupee</span></div>
+          </div>
+          <div class="list-row">
+            <div class="chkbox doing"></div>
+            <div class="row-content">
+              <div class="row-title">Retravailler le <mark style="background:rgba(99,102,241,0.3);color:#fff">positionnement</mark> freelance</div>
+              <div class="row-meta"><span class="pill pri-high">high</span><span>Pipeline</span></div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="chkbox"></div>
+            <div class="row-content">
+              <div class="row-title">Documenter grille de <mark style="background:rgba(99,102,241,0.3);color:#fff">positionnement</mark></div>
+              <div class="row-meta"><span>AI OS Core</span></div>
+            </div>
+          </div>
+
+          <!-- Groupe Contenus -->
+          <div class="section-header" style="margin-top:10px">
+            <div class="section-title">Contenus (1)</div>
+          </div>
+          <div class="card">
+            <div class="row-title">3 erreurs de <mark style="background:rgba(99,102,241,0.3);color:#fff">positionnement</mark> freelance</div>
+            <div class="row-meta"><span class="pill">Carousel</span><span>Packaging</span></div>
+          </div>
+
+          <!-- Option Recherche Plein Texte -->
+          <div class="card" style="margin-top:16px; border-style:dashed; text-align:center; padding:12px">
+            <div style="font-size:11.5px; color:var(--text-secondary); margin-bottom:6px">
+              Pas trouvé dans les titres et frontmatter ?
+            </div>
+            <button class="btn-action" style="width:100%; font-size:11.5px">
+              🔍 Rechercher "positionnement" dans le corps des fichiers (Plein texte)
+            </button>
+            <div style="font-size:10px; color:var(--text-tertiary); margin-top:6px">
+              Note : <code>calendar/</code> et <code>_agent/</code> sont exclus des résultats.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function setWidth(w) {
+  if (w === '360') {
+    document.body.classList.add('w-360');
+  } else {
+    document.body.classList.remove('w-360');
+  }
+  document.querySelectorAll('.wf-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.includes(w));
+  });
+}
+</script>
+
+</body>
+</html>

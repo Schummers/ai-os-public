@@ -1,0 +1,3 @@
+@anthropic-ai/claude-code
+vercel
+@slidev/cli

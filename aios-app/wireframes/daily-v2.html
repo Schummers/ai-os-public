@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Daily v2 — wireframes + séquence</title>
+<style>
+  :root{
+    --bg:#faf9f5; --surface:#fff; --border:rgba(30,29,28,.15); --border-strong:rgba(30,29,28,.30);
+    --t1:#141413; --t2:#3d3d3a; --t3:#73726c; --brand:#c6613f; --danger:#b53333; --warning:#b45309;
+    --rail:#f2f0e9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#eceae2;color:var(--t1);
+       font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",sans-serif;padding:32px}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--t3);margin:0 0 32px;font-size:13px}
+  h2{font-size:15px;margin:40px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border-strong)}
+  .row{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .phone{width:360px;background:var(--bg);border:1px solid var(--border-strong);border-radius:12px;overflow:hidden}
+  .cap{font-size:12px;color:var(--t3);margin:8px 2px 0;width:360px}
+  .top{height:44px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+  .seg{display:flex;border:1px solid var(--border-strong);border-radius:6px;overflow:hidden;font-size:12px}
+  .seg span{padding:5px 12px;color:var(--t3)}
+  .seg .on{background:var(--surface);color:var(--t1);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .seg .off{background:var(--rail)}
+  .icons{display:flex;gap:8px;color:var(--t3);font-size:13px}
+  main{padding:16px}
+  .lab{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin:0 0 8px;display:flex;gap:6px;align-items:center}
+  .badge{background:var(--rail);border-radius:99px;padding:1px 7px;font-size:10px;color:var(--t2)}
+  section{margin-bottom:24px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start}
+  .cb{width:15px;height:15px;border:1.5px solid var(--border-strong);border-radius:4px;flex:none;margin-top:2px;font-size:10px;text-align:center;line-height:12px;color:var(--t3)}
+  .ttl{flex:1;min-width:0}
+  .ttl b{font-weight:500;font-size:13px;display:block}
+  .meta{font-size:11px;color:var(--t3);margin-top:2px}
+  .pill{display:inline-block;border-radius:99px;padding:1px 7px;font-size:10px;border:1px solid var(--border-strong);color:var(--t3)}
+  .late{color:var(--danger);border-color:var(--danger)}
+  .doing{color:var(--warning);border-color:var(--warning)}
+  .rail{display:flex;gap:8px;overflow:hidden}
+  .rcard{background:var(--rail);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;min-width:110px}
+  .rcard small{color:var(--t3);font-size:10px;display:block;margin-top:2px}
+  .empty{border:1px dashed var(--border-strong);border-radius:8px;padding:16px;text-align:center;color:var(--t3);font-size:12px}
+  .prop{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--brand);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+  .prop b{font-size:13px;font-weight:500}
+  .prop p{margin:3px 0 0;font-size:11px;color:var(--t3)}
+  .slot{display:flex;gap:10px;margin-bottom:4px;align-items:stretch}
+  .hh{width:38px;font-size:11px;color:var(--t3);padding-top:8px;flex:none}
+  .blk{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:12px}
+  .blk.focus{border-left:2px solid var(--brand)}
+  .gap{flex:1;border:1px dashed var(--border-strong);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--t3)}
+  .habits{height:36px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;font-size:11px;color:var(--t3);background:var(--surface)}
+  pre{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;overflow:auto;line-height:1.6}
+  .seq{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;overflow:auto}
+</style>
+</head>
+<body>
+
+<h1>Daily view v2</h1>
+<p class="sub">Wireframes des trois états + séquence rituel ↔ daily note ↔ app. Référence visuelle, pas du code.</p>
+
+<h2>1. Les trois états de la vue</h2>
+<div class="row">
+
+  <!-- ETAT A -->
+  <div>
+  <div class="phone">
+    <div class="top">
+      <div class="seg"><span class="on">Daily</span><span class="off">Global</span></div>
+      <div class="icons">⟳ ◐ ✉ ⌕</div>
+    </div>
+    <main>
+      <section>
+        <p class="lab">Projets en cours <span class="badge">3</span></p>
+        <div class="rail">
+          <div class="rcard">Portfolio<small>4 tâches</small></div>
+          <div class="rcard">Vitrine Nova<small>2 tâches</small></div>
+          <div class="rcard">Atlas<small>6 tâches</small></div>
+        </div>
+      </section>
+      <section>
+        <p class="lab">Tâches du jour <span class="badge">1</span></p>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Signaler le PACS au SIE</b>
+          <div class="meta">Atlas · <span class="pill">P1</span></div></div></div>
+      </section>
+      <section>
+        <p class="lab">En retard et en cours <span class="badge">2</span></p>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Relancer le prestataire</b>
+          <div class="meta">Atlas · <span class="pill late">4 j de retard</span></div></div></div>
+        <div class="card"><div class="cb">–</div><div class="ttl"><b>Profil Malt</b>
+          <div class="meta">Portfolio · <span class="pill doing">doing</span></div></div></div>
+      </section>
+      <section>
+        <p class="lab">Propositions</p>
+        <div class="empty">Le rituel n'a pas encore tourné.</div>
+      </section>
+      <section>
+        <p class="lab">Journée</p>
+        <div class="empty">Pas de plan. Lance le rituel du matin.</div>
+      </section>
+    </main>
+    <div class="habits"><span>Sport</span><span>Lecture</span><span>Méditation</span></div>
+  </div>
+  <p class="cap"><b>A. Avant le rituel.</b> Les tâches viennent de <code>projects/tasks</code> : elles s'affichent sans lui. Seules « Propositions » et « Journée » dépendent de la daily note et restent vides.</p>
+  </div>
+
+  <!-- ETAT B -->
+  <div>
+  <div class="phone">
+    <div class="top">
+      <div class="seg"><span class="on">Daily</span><span class="off">Global</span></div>
+      <div class="icons">⟳ ◐ ✉ ⌕</div>
+    </div>
+    <main>
+      <section>
+        <p class="lab">Projets en cours <span class="badge">3</span></p>
+        <div class="rail">
+          <div class="rcard">Portfolio<small>4 tâches</small></div>
+          <div class="rcard">Vitrine Nova<small>2 tâches</small></div>
+          <div class="rcard">Atlas<small>6 tâches</small></div>
+        </div>
+      </section>
+
+      <section>
+        <p class="lab">Tâches du jour <span class="badge">1</span></p>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Signaler le PACS au SIE</b>
+          <div class="meta">Atlas · <span class="pill">P1</span></div></div></div>
+      </section>
+
+      <section>
+        <p class="lab">En retard et en cours <span class="badge">4</span></p>
+        <div class="card"><div class="cb">–</div><div class="ttl"><b>Finir la page projet Vitrine Nova</b>
+          <div class="meta">Portfolio · <span class="pill doing">doing</span></div></div></div>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Relancer le prestataire</b>
+          <div class="meta">Atlas · <span class="pill late">4 j de retard</span></div></div></div>
+        <div class="card"><div class="cb">–</div><div class="ttl"><b>Profil Malt</b>
+          <div class="meta">Portfolio · <span class="pill doing">doing</span></div></div></div>
+      </section>
+
+      <section>
+        <p class="lab">Propositions du rituel <span class="badge">3</span></p>
+        <div class="prop"><b>Envoyer la candidature perso</b>
+          <p>Goal Freelance · le seul contact du jour, deadline dans 2 jours</p></div>
+        <div class="prop"><b>Écrire le post LinkedIn</b>
+          <p>Goal Freelance · bloqué depuis 6 jours au même stade</p></div>
+        <div class="prop"><b>Ranger l'inbox (12)</b>
+          <p>Hygiène · 20 min, tient dans le trou de 14h</p></div>
+      </section>
+
+      <section>
+        <p class="lab">Journée</p>
+        <div class="slot"><div class="hh">09:00</div><div class="blk focus">Focus : candidature perso <span class="pill">90 min</span></div></div>
+        <div class="slot"><div class="hh">11:00</div><div class="blk">Call Léa <span class="pill">meeting</span></div></div>
+        <div class="slot"><div class="hh">12:00</div><div class="gap">2 h libres · proposition : post LinkedIn</div></div>
+        <div class="slot"><div class="hh">16:00</div><div class="blk">Sport <span class="pill">perso</span></div></div>
+      </section>
+    </main>
+    <div class="habits"><span>Sport</span><span>Lecture</span><span>Méditation</span></div>
+  </div>
+  <p class="cap"><b>B. Rituel lancé, focus pas encore validé.</b> Les propositions sont en lecture seule, bordure accent. Rien n'est cliquable : la validation passe par la conversation.</p>
+  </div>
+
+  <!-- ETAT C -->
+  <div>
+  <div class="phone">
+    <div class="top">
+      <div class="seg"><span class="on">Daily</span><span class="off">Global</span></div>
+      <div class="icons">⟳ ◐ ✉ ⌕</div>
+    </div>
+    <main>
+      <section>
+        <p class="lab">Projets en cours <span class="badge">3</span></p>
+        <div class="rail">
+          <div class="rcard">Portfolio<small>4 tâches</small></div>
+          <div class="rcard">Vitrine Nova<small>2 tâches</small></div>
+          <div class="rcard">Atlas<small>6 tâches</small></div>
+        </div>
+      </section>
+
+      <section>
+        <p class="lab">Tâches du jour <span class="badge">2</span></p>
+        <div class="card" style="border-left:2px solid var(--brand)"><div class="cb">–</div><div class="ttl">
+          <b>Envoyer la candidature perso</b>
+          <div class="meta">Portfolio · <span class="pill" style="color:var(--brand);border-color:var(--brand)">focus</span> <span class="pill doing">doing</span></div></div></div>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Signaler le PACS au SIE</b>
+          <div class="meta">Atlas · <span class="pill">P1</span></div></div></div>
+      </section>
+
+      <section>
+        <p class="lab">En retard et en cours <span class="badge">3</span></p>
+        <div class="card"><div class="cb">–</div><div class="ttl"><b>Finir la page projet Vitrine Nova</b>
+          <div class="meta">Portfolio · <span class="pill doing">doing</span></div></div></div>
+        <div class="card"><div class="cb"></div><div class="ttl"><b>Relancer le prestataire</b>
+          <div class="meta">Atlas · <span class="pill late">4 j de retard</span></div></div></div>
+      </section>
+
+      <section>
+        <p class="lab">Propositions du rituel <span class="badge">2</span></p>
+        <div class="prop"><b>Écrire le post LinkedIn</b><p>Goal Freelance · bloqué depuis 6 jours</p></div>
+        <div class="prop"><b>Ranger l'inbox (12)</b><p>Hygiène · 20 min</p></div>
+      </section>
+
+      <section>
+        <p class="lab">Journée</p>
+        <div class="slot"><div class="hh">09:00</div><div class="blk focus">Focus : candidature perso <span class="pill">90 min</span></div></div>
+        <div class="slot"><div class="hh">11:00</div><div class="blk">Call Léa <span class="pill">meeting</span></div></div>
+        <div class="slot"><div class="hh">12:00</div><div class="gap">2 h libres · proposition : post LinkedIn</div></div>
+        <div class="slot"><div class="hh">16:00</div><div class="blk">Sport <span class="pill">perso</span></div></div>
+      </section>
+    </main>
+    <div class="habits"><span>Sport</span><span>Lecture</span><span>Méditation</span></div>
+  </div>
+  <p class="cap"><b>C. Focus validé.</b> La proposition retenue quitte la liste et remonte dans « Tâches du jour » avec le marqueur focus, parce que le rituel lui a posé <code>due: aujourd'hui</code>. Une seule tâche peut porter le marqueur focus.</p>
+  </div>
+
+</div>
+
+<h2>2. Ce que le rituel écrit dans la daily note</h2>
+<pre>---
+date: 2026-08-24
+focus: '[[envoyer-candidature-perso]]'        # nul tant que non validé
+proposals:
+  - task: '[[envoyer-candidature-perso]]'
+    why: "Le seul contact du jour, deadline dans 2 jours"
+  - task: '[[ecrire-post-linkedin]]'
+    why: "Bloqué depuis 6 jours au même stade"
+plan:
+  - { start: "09:00", end: "10:30", kind: focus,    task: '[[envoyer-candidature-perso]]' }
+  - { start: "11:00", end: "11:30", kind: meeting,  label: "Call client" }
+  - { start: "16:00", end: "17:00", kind: perso,    label: "Sport" }
+---
+
+## Morning Journaling
+...corps inchangé, prose humaine...</pre>
+<p class="cap" style="width:auto">Les trous ne sont jamais stockés, ils se déduisent. Le corps reste exactement ce qu'il est aujourd'hui.</p>
+
+<h2>3. Séquence complète</h2>
+<div class="seq">
+<pre style="border:0;background:none;padding:0">
+   TOI              MORNING-RITUAL           VAULT                      APP (Daily view)
+    |                     |                    |                              |
+    |  /morning-ritual    |                    |                              |
+    |-------------------->|                    |                              |
+    |                     |  ouvre le panel ------------------------------->  | état A : tout vide
+    |                     |                    |                              |
+    |                     |  lit Calendar + Gmail (read-only, hors vault)     |
+    |                     |  lit goals, projects/tasks, projects/on, inbox    |
+    |                     |<-------------------|                              |
+    |                     |                    |                              |
+    |                     |  écrit frontmatter |                              |
+    |                     |  proposals + plan  |                              |
+    |                     |------------------->| calendar/2026-08/24.md       |
+    |                     |                    |                              |
+    |  message phase 1    |                    |     focus de la fenêtre      |
+    |<--------------------|                    |  ---> router.refresh() --->  | état B :
+    |                     |                    |                              | propositions
+    |                     |                    |                              | + journée
+    |                     |                    |                              |
+    |  "oui, la candidature perso"             |                              |
+    |-------------------->|                    |                              |
+    |                     |  focus: '[[...]]'  |                              |
+    |                     |------------------->| daily note                   |
+    |                     |  due: 2026-08-24   |                              |
+    |                     |  status: doing     |                              |
+    |                     |------------------->| projects/tasks/envoyer-...md |
+    |                     |                    |                              |
+    |                     |                    |  ---> router.refresh() --->  | état C :
+    |                     |                    |                              | la tâche remonte
+    |                     |                    |                              | dans Tâches du jour
+    |                     |                    |                              |
+    |  je coche la tâche dans l'app  --------------------------------------->|
+    |                     |                    |<--- écrit status: done ------|
+    |                     |                    |                              |
+    |  /update-brain en fin de journée         |                              |
+    |-------------------->|  journal, statuts, hot.md                         |
+</pre>
+</div>
+
+<h2>4. Les trois seules écritures</h2>
+<pre>Le rituel écrit  : daily note (frontmatter focus/proposals/plan) + le champ due, priority
+                   et status de LA tâche validée. Rien d'autre.
+L'app écrit      : status, priority, due, autonomy d'une tâche, sur action explicite.
+                   Elle n'écrit JAMAIS la daily note.
+Personne n'écrit : Google Calendar, Gmail, Drive. Lecture seule, verrouillé par
+                   allowed-tools du skill.</pre>
+
+</body>
+</html>

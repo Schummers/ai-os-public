@@ -1,0 +1,14 @@
+tap "supabase/tap"
+tap "openclaw/tap"
+
+brew "git"
+brew "gh"
+brew "jq"
+brew "ripgrep"
+brew "ghostscript"
+brew "typst"
+brew "pandoc"
+brew "supabase/tap/supabase"
+brew "googleworkspace-cli"
+cask "gcloud-cli"   # required by `gws auth setup` (GCP project + OAuth client)
+cask "openclaw/tap/goplaces"

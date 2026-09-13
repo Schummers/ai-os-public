@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f _agent/hot.md ] && cat _agent/hot.md || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -d _agent ] && printf '%s\\n' 'SECOND_BRAIN_STOP_CHECK: If this session changed the vault or produced durable decisions, update _agent/hot.md and calendar/$(date +%Y-%m)/$(date +%F).md before finishing.' || true"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f _agent/hot.md ] && cat _agent/hot.md || true"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "aios-app",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--dir", "../aios-app", "run", "dev"],
+      "port": 4610
+    }
+  ]
+}

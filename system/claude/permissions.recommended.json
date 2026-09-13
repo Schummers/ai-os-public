@@ -1,0 +1,19 @@
+{
+  "_comment": "Garde-fous recommandés, à FUSIONNER dans ~/.claude/settings.json (voir SETUP.md, étape 3b). Ce fichier n'est jamais lu directement par Claude Code : les permissions sont locales à chaque machine, donc elles ne se projettent pas comme les skills. Un `ask` est déterministe — il s'exécute avant l'agent, qui ne peut pas le contourner, quoi que dise un prompt ou un skill. C'est la seule barrière réelle : une consigne écrite dans un SKILL.md est une intention, pas une garantie.",
+  "permissions": {
+    "ask": [
+      "Bash(gws gmail users messages send*)",
+      "Bash(gws gmail users drafts send*)",
+      "Bash(gws drive files delete*)",
+      "Bash(gws drive permissions*)",
+      "Bash(gws calendar events delete*)",
+      "Bash(git push --force *)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)"
+    ]
+  }
+}

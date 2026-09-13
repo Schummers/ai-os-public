@@ -1,0 +1,84 @@
+# ============================================================================
+# LISTE BLANCHE. Tout est ignore par defaut, on re-inclut nommement.
+#
+# Pourquoi pas l'inverse. Jusqu'au 2026-08-27 ce fichier fonctionnait a
+# l'envers : il ignorait le contenu des domaines et re-incluait les Markdown de
+# pilotage par des jokers (`!/agency/cv/**/*.html`). Une centaine de lignes ou
+# la derniere regle qui matche gagne. Ce mecanisme a laisse passer deux fois du
+# contenu personnel : rattrape de justesse sur `agency/cv/letters/deriv.mjs`
+# (2026-08-26), PAS rattrape sur une lettre de motivation archivee sous `agency/cv/archive/`
+# (commite avec la lettre entiere et un numero de portable, vu le 2026-08-27).
+#
+# Avec une liste blanche, un fichier ne peut pas fuir par oubli : il faut une
+# ligne explicite pour qu'il entre. Un nouveau domaine est invisible sans que
+# personne ait a y penser. Voir docs/adr/0003.
+#
+# Ce repo ne contient plus QUE le systeme, destine a etre partage. Le pilotage
+# des domaines vit dans leur propre repo prive, voir CLAUDE.md.
+# ============================================================================
+
+/*
+
+!/.gitignore
+!/AGENTS.md
+!/CLAUDE.md
+!/CONTEXT.md
+!/SETUP.md
+!/connections.md
+!/docs/
+!/system/
+!/templates/
+!/aios-app/
+!/deliverables/
+
+# ---------------------------------------------------------------------------
+# Bruit, a toute profondeur
+# ---------------------------------------------------------------------------
+.DS_Store
+*.log
+node_modules/
+__pycache__/
+**/.env
+**/.env.local
+**/.env.*.local
+**/secrets.json
+**/settings.local.json
+
+# ---------------------------------------------------------------------------
+# system/ : secrets et outillage mono-poste
+# ---------------------------------------------------------------------------
+system/env/local/*
+!system/env/local/.gitkeep
+# Carte des secrets (chemins, pas valeurs) et outillage compta mono-poste :
+# local, hors du template forkable. Voir SETUP.md.
+system/env/secrets.registry.md
+system/skills/finance/compta-import/
+# Skills natifs geres par Codex, pas du contenu AI OS
+system/skills/_active/.system/
+# IDENTITE. `user.md` et `style.md` portent le nom, l'email, le telephone et le
+# style d'ecriture de leur proprietaire. Ce repo est destine a etre partage :
+# seuls les `.example` sont versionnes, SETUP.md etape 4 les fait recopier.
+# Les versionner ne servait a rien (ils sont ecrases a l'installation) et
+# coutait une fuite d'identite plus un conflit de merge perpetuel entre deux
+# personnes qui partagent le repo. Voir docs/adr/0004.
+system/preferences/user.md
+system/preferences/style.md
+
+# ---------------------------------------------------------------------------
+# aios-app/ : sortie de build
+# ---------------------------------------------------------------------------
+aios-app/.next/
+aios-app/tsconfig.tsbuildinfo
+
+# ---------------------------------------------------------------------------
+# deliverables/ : registre inter-domaines. Seul le CLAUDE.md de la RACINE est
+# versionne : il explique la structure sans nommer un seul domaine. Le contenu
+# est du livrable fini (PDF, PPT, video), certainement pas git.
+#
+# Les sous-dossiers par domaine (et leur propre CLAUDE.md) restent hors git,
+# comme les domaines eux-memes : leur nom seul dit ce sur quoi le proprietaire
+# travaille. Corrige le 2026-09-13, apres qu'un casier de domaine s'est
+# retrouve dans le snapshot public.
+# ---------------------------------------------------------------------------
+/deliverables/**
+!/deliverables/CLAUDE.md
